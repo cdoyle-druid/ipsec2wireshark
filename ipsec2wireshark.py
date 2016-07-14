@@ -67,7 +67,7 @@ def output_wireshark(connections):
     "IPv4","69.27.252.3","10.0.0.161","0xc36ee45f","AES-CBC [RFC3602]","0xbadc9e716a0cdb11cd86f7c4986e5a70200fd353ed06b2ee30680fb7c6bd320d","HMAC-SHA-1-96 [RFC2404]","0xccd0880af3650626adda310aa385661c6e100ec0"
     """
     for connection in connections:
-        print('"IPV4","{src}","{dst}","{spi}","{enc}","{enc_key}","{auth}","{auth_key}"'.format(**connection))
+        print('"IPv4","{src}","{dst}","{spi}","{enc}","{enc_key}","{auth}","{auth_key}"'.format(**connection))
 
 
 if __name__ == "__main__":
