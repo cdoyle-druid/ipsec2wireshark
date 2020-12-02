@@ -12,6 +12,11 @@ import subprocess
 AUTH = {
     ("hmac(sha1)", "96"): "HMAC-SHA-1-96 [RFC2404]",
     ("hmac(sha512)", "256"): "HMAC-SHA-512-256 [RFC4868]",
+    ("", "64"): "ANY 64 bit authentication [no checking]",
+    ("", "96"): "ANY 96 bit authentication [no checking]",
+    ("", "128"): "ANY 128 bit authentication [no checking]",
+    ("", "192"): "ANY 192 bit authentication [no checking]",
+    ("", "256"): "ANY 256 bit authentication [no checking]",
 }
 
 ENC = {
@@ -57,11 +62,11 @@ def parse_xfrm(ip=None):
                 connection["enc"] = ENC[enc]
                 connection["enc_key"] = key
             elif line.startswith("\taead"):
-                _, enc, key, _ = line.split(" ")
+                _, enc, key, bits = line.split(" ")
                 connection["enc"] = ENC[enc]
                 connection["enc_key"] = key
-                connection["auth"] = None
-                connection["auth_key"] = None
+                connection["auth"] = AUTH[("", bits)]
+                connection["auth_key"] = ""
             # encap type espinudp sport 10002 dport 10001 addr 10.0.10.58
             elif line.startswith("\tencap"):
                 parsed = line.split(" ")
