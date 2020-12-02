@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Runs "ip xfrm state" and outputs lines to be added to ~/.wireshark/esp_sa
 This process must be run using sudo.
@@ -35,7 +35,8 @@ def parse_xfrm(ip=None):
     """
     connections = []
     connection = None
-    for line in subprocess.check_output(["ip", "xfrm", "state"]).split("\n"):
+    for line in subprocess.check_output(
+            ["ip", "xfrm", "state"], encoding=sys.stdout.encoding).split("\n"):
         if line.startswith("src "):
             if connection is not None:
                 connections.append(connection)
