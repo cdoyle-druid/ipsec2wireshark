@@ -10,7 +10,11 @@ import sys
 import subprocess
 
 AUTH = {
+    ("hmac(md5)", "96"): "HMAC-MD5-96 [RFC2403]",
+    ("hmac(rmd160)", "96"): "MAC-RIPEMD-160-96 [RFC2857]",
     ("hmac(sha1)", "96"): "HMAC-SHA-1-96 [RFC2404]",
+    ("hmac(sha256)", "128"): "HMAC-SHA-256-128 [RFC4868]",
+    ("hmac(sha384)", "192"): "HMAC-SHA-384-192 [RFC4868]",
     ("hmac(sha512)", "256"): "HMAC-SHA-512-256 [RFC4868]",
     ("", "64"): "ANY 64 bit authentication [no checking]",
     ("", "96"): "ANY 96 bit authentication [no checking]",
