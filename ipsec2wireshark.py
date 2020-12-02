@@ -16,6 +16,7 @@ AUTH = {
 
 ENC = {
     "cbc(aes)": "AES-CBC [RFC3602]",
+    "rfc4106(gcm(aes))": "AES-GCM [RFC4106]",
 }
 
 
@@ -54,6 +55,16 @@ def parse_xfrm(ip=None):
                 _, enc, key = line.split(" ")
                 connection["enc"] = ENC[enc]
                 connection["enc_key"] = key
+            elif line.startswith("\taead"):
+                _, enc, key, _ = line.split(" ")
+                connection["enc"] = ENC[enc]
+                connection["enc_key"] = key
+                connection["auth"] = None
+                connection["auth_key"] = None
+            # encap type espinudp sport 10002 dport 10001 addr 10.0.10.58
+            elif line.startswith("\tencap"):
+                parsed = line.split(" ")
+                connection["port"] = parsed[4]
 
     if connection is not None:
         connections.append(connection)
